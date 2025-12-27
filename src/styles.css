@@ -1,3 +1,49 @@
+/*reset*/
+    *, *:before, *:after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    scroll-behavior: smooth;
+}
+img {
+    max-width: 100%;
+    display: flex;
+}
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+/**/
+
+
 body {
-    background-color: rebeccapurple;
+    display: flex;
+    background-color: gray;
+}
+
+
+.leftPanel{
+    display: flex;
+    height: 100vw;
+    width: 20%;
+    border: 2px solid blue;
+}
+
+
+
+
+.mainPanel{
+    display: flex;
+    height: 100vw;
+    width: 80%;
+    border: 2px solid black;
+}
+.mainHeader{
+    display: flex;
+    height: 5vw;
+    width: 100%;
+    border: 2px solid blue;
 }
