@@ -1,0 +1,25 @@
+/*
+Features: title, description, dueDate, createdDate, priority, checklist, notes, localStorage API - *not necessary harder to implement features* (groups, reminders, sorting, subtasks)
+
+Notes:
+- separate application logic (creating new todos, setting todos as complete, changing todo priority etc...)
+- separate modules from the DOM-related stuff
+- localStorage API for Saving
+- JSON exchange with localStorage API, no functions
+
+Interface having at least:
+
+    1. View all projects.
+    2. View all todos in each project (probably just the title and duedate… perhaps changing color for different priorities).
+    3. Expand a single todo to see/edit its details, notes maybe.
+    4. Delete a todo.
+
+Plan to Implement it:
+
+1. default project (group?) in which todo's upon loading the website, and upon creation.
+2. should be able to create new projects and choose which project (group?) their todos go into
+3. 
+X. function that saves the projects (and todos) to localStorage every time a new project (or todo) is created, and another function that looks for that data in localStorage on first load.
+
+*/
+
