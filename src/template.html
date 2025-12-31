@@ -9,12 +9,50 @@
 </head>
 
 <body>
-    <div class="leftPanel"></div>
+    <div class="leftPanel">
+        <div class="headerLeftPanel">
+            <p class="leftPanelYourProjectHeaderText">Your Projects</p>
+            <div class="defaultProject">
+                <p class="projectText">Default Project</p>
+            </div>
+            <button class="leftPanelYourProjectHeaderPlusButton">+</button>
+        </div>
+    </div>
     <div class="mainPanel">
-        <header class="mainHeader"></header>
-        <div class="innerMiddlePanel">
-            <p class="newTaskButtonMainText">Start by creating a task!</p>
-            <button class="newTaskButtonMain">new task</button>
+        <header class="mainHeader">
+            <!-- <div class="mainHeaderHomeDiv">
+                <p class="mainHeaderHomeText">Home</p>
+            </div> -->
+        </header>
+        <div class="innerMiddlePanelOverlay">
+            <div class="innerMiddlePanel">
+                <!-- <p class="newTaskButtonMainText">Start by creating a task!</p>
+                <button class="newTaskButtonMain">+ New Task</button> -->
+                <div class="taskForm">
+                    <div class="taskFormInput">
+                        <input id="" class="taskFormInputTitle" type="text" required placeholder="Title">
+                        <textarea name="" id="" class="taskFormInputDescription" required placeholder="Description"
+                            res></textarea>
+                    </div>
+                    <div class="taskFormOptions">
+                        <button class="taskFormOption"></button>
+                        <button class="taskFormOption"></button>
+                        <button class="taskFormOption"></button>
+                        <button class="taskFormOption"> </button>
+                    </div>
+                    <div class="taskFormFinalize">
+                        <div class="taskFormFinalizeLeft">
+                            <button class="taskFormFinalizeProjectSelectButton"></button>
+                        </div>
+                        <div class="taskFormFinalizeRight">
+                            <button class="taskFormFinalizeCancelButton"></button>
+                            <button class="taskFormFinalizeAddTaskButton"></button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </body>

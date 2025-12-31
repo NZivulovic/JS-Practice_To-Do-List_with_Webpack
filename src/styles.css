@@ -1,73 +1,289 @@
 /*reset*/
-    *, *:before, *:after {
+*,
+*:before,
+*:after {
     box-sizing: border-box;
 }
+
 * {
     margin: 0;
     padding: 0;
 }
+
 html {
     scroll-behavior: smooth;
 }
+
 img {
     max-width: 100%;
     display: flex;
 }
-h1, h2, h3, h4, h5, h6 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     text-wrap: balance;
 }
+
 /**/
 
 html {
-  height: 100%;
+    height: 100%;
 }
+
 body {
     display: flex;
-    background-color: gray;
     min-height: 100%;
 }
 
 
-.leftPanel{
+.leftPanel {
     display: flex;
-    
+    flex-wrap: wrap;
     width: 15%;
-    border: 2px solid blue;
+    border: 2px solid white;
+
+    background-color: black;
 }
 
-
-
-
-.mainPanel{
-    display: flex;
-    flex-direction: column;
-    
-    width: 85%;
-    border: 2px solid black;
-}
-.mainHeader{
-    display: flex;
-    height: 3vw;
-    width: 100%;
-    border: 2px solid blue;
-}
-.innerMiddlePanel{
+.headerLeftPanel {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
-    margin: auto 40%;
+    height: fit-content;
+    
+    width: 100%;
+    background-color: black;
 }
 
-.newTaskButtonMain{
-    padding: 0.75rem 1.75rem;
-    border-radius: 10px;
+.leftPanelYourProjectHeaderText {
+    font-size: x-large;
+    margin: 0 auto;
+    color: white;
+    margin-top: 1vw;
+}
+
+.defaultProject {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    margin-top: 2vw;
+    cursor: pointer;
+    border: 2px solid white;
+    padding: 1vw 0;
+}
+.defaultProject:hover{
+    background-color: rgb(92, 92, 92);
+}
+.defaultProject:active{
+    background-color: rgb(45, 45, 45);
+}
+
+.projectText{
+    color: white;
+    margin: auto 0;
+    margin-left: 0.5vw;
+    
+}
+
+.leftPanelYourProjectHeaderPlusButton {
+    display: block;
+    height: 2rem;
+    width: 2rem;
+    margin: 0 auto;
+    margin-top: 2vw;
+    cursor: pointer;
+    border-radius: 5vw;
+    font-weight: bold;
+    border-color: white;
+    color: white;
+    background-color: black;
+    
+}
+
+
+
+
+.mainPanel {
+    display: flex;
+    flex-direction: column;
+
+    width: 85%;
+
+}
+
+.mainHeader {
+    display: flex;
+    height: 3vw;
+    width: 100%;
+    border: 2px solid white;
+    background-color: black;
+}
+/* .mainHeaderHomeDiv{
+    display: flex;
+    justify-items: center;
+    height: 100%;
+    margin: auto 0;
+    margin-right: 0.5rem;
+    border-right: 2px solid white;
+}
+.mainHeaderHomeText{
+    color: white;
+    font-size: 1vw;
+    margin: auto 0;
+    margin-right: 0.5rem;
+} */
+
+
+.innerMiddlePanelOverlay {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(45, 45, 45);
+    height: 100%;
+    width: 100%;
+}
+
+.innerMiddlePanel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto auto;
+}
+
+.newTaskButtonMain {
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
     margin: 0 auto;
     cursor: pointer;
+    font-weight: bold;
+    border-color: white;
+    color: white;
+    background-color: black;
+   
 }
 
-.newTaskButtonMainText{
-    font-size: xx-large;
-    margin-bottom: 1rem;
-    max-height: 150px;
+.newTaskButtonMainText {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+
+    color: white;
+}
+
+
+
+
+.taskForm{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    margin-bottom: 40%;
+    width: 60rem;
+    height: 20rem;
+    border-radius: 1.5rem;
+    border: 2px solid white;
+}
+
+.taskFormInput{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 100%;
+    
+    
+}
+.taskFormInputTitle{
+    color: white;
+    background-color: black;
+    border: none;
+    text-indent: 1rem;
+    font-size: 2rem;
+    height: 100%;
+    border-radius: 5vw;
+}
+.taskFormInputTitle:focus{
+    outline: none;
+}
+.taskFormInputDescription{
+    height: 4rem;
+    resize: none;
+    color: white;
+    background-color: black;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    text-indent: 1rem;
+    font-size: 1rem;
+}
+.taskFormInputDescription:focus{
+    outline: none;
+}
+
+
+
+.taskFormOptions{
+    display: flex;
+    flex-direction: row;
+    
+    gap: 1.5rem;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    
+}
+.taskFormOption{
+    background-color: black;
+    border: 2px solid white;
+    padding: 2rem 3rem;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+.taskFormOption:hover{
+    background-color: rgb(45, 45, 45);
+}
+
+
+.taskFormFinalize{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 2rem;
+    
+}
+
+.taskFormFinalizeLeft{
+    float: inline-start;
+}
+.taskFormFinalizeProjectSelectButton{
+    padding: 2rem 3rem;
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+.taskFormFinalizeProjectSelectButton:hover{
+    background-color: rgb(45, 45, 45);
+}
+.taskFormFinalizeRight{
+    float: inline-end;
+}
+.taskFormFinalizeCancelButton{
+    padding: 2rem 3rem;
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+.taskFormFinalizeCancelButton:hover{
+    background-color: rgb(45, 45, 45);
+}
+.taskFormFinalizeAddTaskButton{
+    padding: 2rem 3rem;
+    background-color: black;
+    border: 2px solid white;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+.taskFormFinalizeAddTaskButton:hover{
+    background-color: rgb(45, 45, 45);
 }
