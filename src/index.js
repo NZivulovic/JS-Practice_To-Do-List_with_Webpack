@@ -6,32 +6,53 @@ import "./styles.css";
 import inboxSVG from "./svgs/inbox_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
 import homeSVG from "./svgs/home_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg";
 import completedSVG from "./svgs/done_all_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
-//
+import arrowDropDownSVG from "./svgs/arrow_drop_down_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
+import alertSVG from "./svgs/add_alert_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+import calendarSVG from "./svgs/calendar_month_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+import flagSVG from "./svgs/flag_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+import moreSVG from "./svgs/more_horiz_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 
 
+// DOM Manipulation
 
-const newInboxSVG = new Image();
-// const newHomeSVG = new Image();
-const newCompletedSVG = new Image();
+const addSvgToDOM = (() => {
 
-newInboxSVG.src = inboxSVG;
-// newHomeSVG.src = homeSVG;
-// newHomeSVG.style.cssText = "width: 2vw; height: 100%; margin: auto 0;"
-newCompletedSVG.src = completedSVG;
-//
+    // takes DOM Selectors and creates new SVG then Appends or insertsBefore
+    const addSvg = (parentSelector, svgSrc, beforeSelector = null, className = "") => {
+        const svg = new Image();
+        svg.src = svgSrc;
+        if (className) svg.classList.add(className);
 
-const defaultProjectDiv = document.querySelector(".defaultProject");
-// const mainHeaderDiv = document.querySelector(".mainHeaderHomeDiv");
+        const parent = document.querySelector(parentSelector);
+        const reference = beforeSelector ? parent.querySelector(beforeSelector) : null;
 
-defaultProjectDiv.insertBefore(newInboxSVG, document.querySelector(".projectText"));
-// mainHeaderDiv.insertBefore(newHomeSVG, document.querySelector(".mainHeaderHomeText"));
+        if (reference) {
+            parent.insertBefore(svg, reference);
+        } else {
+            parent.appendChild(svg);
+        }
 
+    }
 
-// DOM New Task 
+    return { addSvg };
+})();
 
-const createNewTaskDOM = (() => {
+// All SVG Additions
+addSvgToDOM.addSvg(".taskFormFinalizeProjectSelectButton", inboxSVG, "#btn5.taskFormOptionText");
+addSvgToDOM.addSvg("#btn1.taskFormOption", calendarSVG, "#btn1.taskFormOptionText");
+addSvgToDOM.addSvg("#btn2.taskFormOption", flagSVG, "#btn2.taskFormOptionText");
+addSvgToDOM.addSvg("#btn3.taskFormOption", alertSVG, "#btn3.taskFormOptionText");
+addSvgToDOM.addSvg(".mainHeaderHomeDiv", homeSVG, ".mainHeaderHomeText", "mainHeaderHomeSVG");
+addSvgToDOM.addSvg("#btn4.taskFormOption", moreSVG);
+addSvgToDOM.addSvg(".taskFormFinalizeProjectSelectButton", arrowDropDownSVG);
+addSvgToDOM.addSvg(".defaultProject", inboxSVG, ".projectText", ".projectText");
+document.querySelector(".mainHeaderHomeSVG").style.cssText = "width: 2vw; height: 100%; margin: auto 0;"
 
-    // current page DOM removal
+// Clear innerMiddlePage
+
+const removeCurrentPage = (() => {
+
+    // current page
     const innerMiddlePanel = document.querySelector('.innerMiddlePanel');
 
     const removeCurrentPageContent = () => {
@@ -43,18 +64,22 @@ const createNewTaskDOM = (() => {
     }
 
     // buttons for creating Tasks
-    const newTaskButtonMain = document.querySelector('.newTaskButtonMain');
-    const newTaskButtonLeftPanel = document.querySelector('.leftPanelYourProjectHeaderPlusButton');
+    const newTaskButtonMain = document.querySelector('.newTaskButtonMain');    // Home Page Middle Button
+    const newTaskButtonLeftPanel = document.querySelector('.leftPanelYourProjectHeaderPlusButton');  // Left Panel Button
 
-    newTaskButtonMain.addEventListener('click', () => {
-        removeCurrentPageContent();
-    })
+    if (newTaskButtonMain) {
+        newTaskButtonMain.addEventListener('click', () => {
+            removeCurrentPageContent();
+        })
+    }
+
     newTaskButtonLeftPanel.addEventListener('click', () => {
         removeCurrentPageContent();
     })
 
 
 
-    
+
     return { removeCurrentPageContent };
 })();
+
