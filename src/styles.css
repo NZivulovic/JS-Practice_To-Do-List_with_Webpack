@@ -222,7 +222,8 @@ body {
 .newTaskButtonMain {
     padding: 0.5rem 1rem;
     border-radius: 1rem;
-    margin: 0 auto;
+    margin: 15vw auto;
+    margin-top: 0;
     cursor: pointer;
     font-weight: bold;
     border-color: white;
@@ -233,16 +234,20 @@ body {
 
 .newTaskButtonMainText {
     font-size: 2.5rem;
+    
+    margin: 15vw auto;
     margin-bottom: 1.5rem;
-
     color: white;
 }
 
 
 
 
+#taskForm{
+    display: none;
+}
+
 .taskForm {
-    display: flex;
     flex-direction: column;
     background-color: black;
     justify-content:center;

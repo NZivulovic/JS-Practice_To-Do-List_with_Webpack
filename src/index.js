@@ -45,7 +45,7 @@ addSvgToDOM.addSvg("#btn3.taskFormOption", alertSVG, "#btn3.taskFormOptionText")
 addSvgToDOM.addSvg(".mainHeaderHomeDiv", homeSVG, ".mainHeaderHomeText", "mainHeaderHomeSVG");
 addSvgToDOM.addSvg("#btn4.taskFormOption", moreSVG);
 addSvgToDOM.addSvg(".taskFormFinalizeProjectSelectButton", arrowDropDownSVG);
-addSvgToDOM.addSvg(".defaultProject", inboxSVG, ".projectText", ".projectText");
+addSvgToDOM.addSvg(".defaultProject", inboxSVG, ".projectText", "projectText");
 document.querySelector(".mainHeaderHomeSVG").style.cssText = "width: 2vw; height: 100%; margin: auto 0;"
 
 // Clear innerMiddlePage
@@ -55,12 +55,27 @@ const removeCurrentPage = (() => {
     // current page
     const innerMiddlePanel = document.querySelector('.innerMiddlePanel');
 
-    const removeCurrentPageContent = () => {
-        if (innerMiddlePanel.hasChildNodes()) {
-            while (innerMiddlePanel.firstChild) {
-                innerMiddlePanel.removeChild(innerMiddlePanel.firstChild);
+    const removeCurrentPageContent = (targetID) => {
+        // if (innerMiddlePanel.hasChildNodes()) {
+        //     while (innerMiddlePanel.firstChild) {
+        //         innerMiddlePanel.removeChild(innerMiddlePanel.firstChild);
+        //     }
+        // }
+
+
+        const parentNodes = innerMiddlePanel.children
+        console.log(innerMiddlePanel.children);
+
+        for (const node of parentNodes) {
+            if (node.id === "createTask") {
+                node.style.display = "none";
+                document.getElementById("taskForm").style.display = "flex";
             }
+
         }
+
+
+
     }
 
     // buttons for creating Tasks
@@ -68,13 +83,13 @@ const removeCurrentPage = (() => {
     const newTaskButtonLeftPanel = document.querySelector('.leftPanelYourProjectHeaderPlusButton');  // Left Panel Button
 
     if (newTaskButtonMain) {
-        newTaskButtonMain.addEventListener('click', () => {
-            removeCurrentPageContent();
+        newTaskButtonMain.addEventListener('click', (e) => {
+            removeCurrentPageContent(e.target.id);
         })
     }
 
-    newTaskButtonLeftPanel.addEventListener('click', () => {
-        removeCurrentPageContent();
+    newTaskButtonLeftPanel.addEventListener('click', (e) => {
+        removeCurrentPageContent(e.target.id);
     })
 
 
