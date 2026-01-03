@@ -15,10 +15,24 @@
             <div class="defaultProject">
                 <p class="projectText">Default Project</p>
             </div>
-            <div class="leftPanelAddNewTask">
-                <button class="leftPanelYourProjectHeaderPlusButton">
-                    <p>+</p>
-                </button>
+            <div class="leftPanelAddNewProject">
+                <div>
+                    <button id="createProjectButton" class="leftPanelYourProjectHeaderPlusButton">
+                        <p id="createProjectButton">+</p>
+                    </button>
+                </div>
+                <div id="newProjectLeftPanel">
+                    <div>
+                        <input class="newProjectLeftPanelInput" type="text" required placeholder="Title">
+                    </div>
+                    <div class="newProjectLeftPanelButtons">
+                        <Button class="newProjectLeftPanelIconButton">Icon</Button>
+                    <button class="newProjectLeftPanelAddProjectButton">Add</button>
+                    </div>
+                    <div class="projectNameWarningLeftPanelDiv">
+                        <p class="ProjectNameWarningLeftPanel">Project Folder already made!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -30,8 +44,10 @@
         </header>
         <div class="innerMiddlePanelOverlay">
             <div class="innerMiddlePanel">
-                <p id="createTask" class="newTaskButtonMainText">Start by creating a task!</p>
-                <button id="createTask" class="newTaskButtonMain">+ New Task</button>
+                <div class="createTask">
+                    <p class="newTaskButtonMainText">Start by creating a task!</p>
+                    <button id="createTaskButton" class="newTaskButtonMain">+ New Task</button>
+                </div>
                 <div id="taskForm" class="taskForm">
                     <div class="taskFormInput">
                         <input id="" class="taskFormInputTitle" type="text" required placeholder="Title">

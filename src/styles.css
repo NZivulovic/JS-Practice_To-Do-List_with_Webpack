@@ -58,6 +58,7 @@ body {
     border: 0.1rem solid white;
     border-bottom: 0;
     background-color: black;
+     overflow: hidden;
 }
 
 .headerLeftPanel {
@@ -75,24 +76,25 @@ body {
     justify-content: center;
     height: fit-content;
 
+    
     font-size: 1.5vw;
     margin: 0 auto;
     color: white;
+    margin-bottom: 2.5vh;
 
 }
 
 .defaultProject {
     display: flex;
     justify-content: center;
-    
+
     height: fit-content;
 
-   
+
     flex-direction: row;
 
     max-height: fit-content;
 
-    margin-top: 2.5vh;
     padding: 2vh 0;
 
     border-top: 0.1rem solid white;
@@ -100,10 +102,12 @@ body {
     font-size: 1vw;
 
     overflow: auto;
-    
+
     flex-flow: row;
     user-select: none;
     cursor: pointer;
+
+    
 }
 
 .defaultProject:hover {
@@ -121,35 +125,34 @@ body {
     justify-content: center;
 }
 
-.leftPanelAddNewTask {
+.leftPanelAddNewProject {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 
-    
 }
 
 .leftPanelYourProjectHeaderPlusButton {
     display: block;
 
     font-size: 1vw;
-    
+
     height: 3em;
     width: 3em;
-    
 
-    
+
+    margin: 0 auto;
     margin-top: 2vw;
     cursor: pointer;
-    border-radius: 100%;
+    border-radius: 5vh;
     border: 0.1rem solid white;
     font-weight: bold;
-    
+
     color: white;
     background-color: black;
-    
-    
 
 }
+
 .leftPanelYourProjectHeaderPlusButton:hover {
     background-color: rgb(92, 92, 92);
 }
@@ -160,16 +163,99 @@ body {
 
 
 
+#newProjectLeftPanel{
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-top: 2rem;
+    max-width: fit-content;
+    min-height: fit-content;
+    background-color: black;
+    border-radius: 1rem;
+    border: 0.1rem solid white;
+}
+.newProjectLeftPanelInput{
+    text-align: center;
+    max-height: fit-content;
+    min-height: 2.5rem;
+    width: fit-content;
+    width: 100%;
+    font-size: 1.5rem;
+    color: white;
+    background-color: black;
+    border: none;
+    border-bottom: 0.1rem solid white;
+}
+.newProjectLeftPanelInput:focus {
+    outline: none;
+}
+.newProjectLeftPanelButtons{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: fit-content;
+    width: fit-content;
+    font-size: 2rem;
+    
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom:1rem;
+    
+
+}
+.newProjectLeftPanelIconButton{
+    cursor: pointer;
+    margin: 0 auto;
+    border: 0.1rem solid white;
+    border-radius: 1rem;
+    
+    font-weight: bold;
+    border-color: white;
+    color: white;
+    background-color: black;
+    padding: 0.5rem 1rem;
+    
+}
+.newProjectLeftPanelAddProjectButton{
+    cursor: pointer;
+    margin: 0 auto;
+    border: 0.1rem solid white;
+    border-radius: 1rem;
+    font-weight: bold;
+    border-color: white;
+    color: white;
+    background-color: black;
+    padding: 0.5rem 1rem;
+    justify-content: flex-end;
+    
+}
+.projectNameWarningLeftPanelDiv{
+    display: none;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+    user-select: none;
+}
+.ProjectNameWarningLeftPanel{
+    color: rgb(211, 23, 23);
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
 .mainPanel {
     display: flex;
-    
+    height: 100vh;
     flex-direction: column;
     flex: 75vw;
-    
-    
-    
-
-
 }
 
 .mainHeader {
@@ -177,7 +263,7 @@ body {
     flex-wrap: nowrap;
     flex-direction: row;
     height: 5vh;
-    
+
 
     border: 2px solid white;
     border-left: 0px;
@@ -204,19 +290,28 @@ body {
 .innerMiddlePanelOverlay {
     display: flex;
     flex-direction: column;
-    
+
     background-color: rgb(45, 45, 45);
-    
-    
-    
+
+
+
 }
 
 .innerMiddlePanel {
     display: flex;
-   
+
     background-color: rgb(45, 45, 45);
     flex-direction: column;
     justify-content: flex-start;
+}
+
+.createTask {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 25vh auto;
+    width: 60rem;
+    height: 20rem;
 }
 
 .newTaskButtonMain {
@@ -234,7 +329,7 @@ body {
 
 .newTaskButtonMainText {
     font-size: 2.5rem;
-    
+
     margin: 15vw auto;
     margin-bottom: 1.5rem;
     color: white;
@@ -243,15 +338,15 @@ body {
 
 
 
-#taskForm{
+#taskForm {
     display: none;
 }
 
 .taskForm {
     flex-direction: column;
     background-color: black;
-    justify-content:center;
-    margin: 15vh auto;
+    justify-content: center;
+    margin: 25vh auto;
     width: 60rem;
     height: 20rem;
     border-radius: 1.5rem;
@@ -290,7 +385,7 @@ body {
     border-bottom: 2px solid white;
     text-indent: 1rem;
     font-size: 1rem;
-    
+
 }
 
 .taskFormInputDescription:focus {

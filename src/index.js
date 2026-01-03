@@ -13,7 +13,7 @@ import flagSVG from "./svgs/flag_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 import moreSVG from "./svgs/more_horiz_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 
 
-// DOM Manipulation
+//  // DOM Manipulation
 
 const addSvgToDOM = (() => {
 
@@ -46,14 +46,33 @@ addSvgToDOM.addSvg(".mainHeaderHomeDiv", homeSVG, ".mainHeaderHomeText", "mainHe
 addSvgToDOM.addSvg("#btn4.taskFormOption", moreSVG);
 addSvgToDOM.addSvg(".taskFormFinalizeProjectSelectButton", arrowDropDownSVG);
 addSvgToDOM.addSvg(".defaultProject", inboxSVG, ".projectText", "projectText");
+
 document.querySelector(".mainHeaderHomeSVG").style.cssText = "width: 2vw; height: 100%; margin: auto 0;"
 
-// Clear innerMiddlePage
+// Clear innerMiddlePage - DOM
 
 const removeCurrentPage = (() => {
 
+
+    // buttons for creating Tasks
+    const newTaskButtonMain = document.querySelector('.newTaskButtonMain');    // Home Page Middle Button
+    const newTaskButtonLeftPanel = document.querySelector('.leftPanelYourProjectHeaderPlusButton');  // Left Panel Button
+
+    if (newTaskButtonMain) {
+        newTaskButtonMain.addEventListener('click', (e) => {
+            console.log(e.target.id);
+            removeCurrentPageContent(e.target.id);
+        })
+    }
+
+    newTaskButtonLeftPanel.addEventListener('click', (e) => {
+        console.log(e.target.id);
+        removeCurrentPageContent(e.target.id);
+    })
+
     // current page
     const innerMiddlePanel = document.querySelector('.innerMiddlePanel');
+
 
     const removeCurrentPageContent = (targetID) => {
         // if (innerMiddlePanel.hasChildNodes()) {
@@ -65,36 +84,89 @@ const removeCurrentPage = (() => {
 
         const parentNodes = innerMiddlePanel.children
         console.log(innerMiddlePanel.children);
+        console.log(targetID);
 
         for (const node of parentNodes) {
-            if (node.id === "createTask") {
+            if (targetID === "createProjectButton") {
+
+                document.getElementById("newProjectLeftPanel").style.display = "flex";
+            }
+            else if (targetID === "createTaskButton") {
                 node.style.display = "none";
                 document.getElementById("taskForm").style.display = "flex";
             }
+            else {
+                return;
+            }
+
 
         }
 
-
-
     }
 
-    // buttons for creating Tasks
-    const newTaskButtonMain = document.querySelector('.newTaskButtonMain');    // Home Page Middle Button
-    const newTaskButtonLeftPanel = document.querySelector('.leftPanelYourProjectHeaderPlusButton');  // Left Panel Button
 
-    if (newTaskButtonMain) {
-        newTaskButtonMain.addEventListener('click', (e) => {
-            removeCurrentPageContent(e.target.id);
-        })
-    }
-
-    newTaskButtonLeftPanel.addEventListener('click', (e) => {
-        removeCurrentPageContent(e.target.id);
-    })
-
-
-
-
-    return { removeCurrentPageContent };
 })();
+
+
+
+const projectCreation = (() => {
+
+
+    class createProject {
+
+        constructor(title, icon) {
+            this.title = title;
+            this.icon = icon;
+        };
+
+        createProjectElement() {
+            const projectLeftPanelDiv = document.createElement('div');
+            projectLeftPanelDiv.classList.add("defaultProject");
+
+            const svg = new Image();
+            svg.classList.add('projectText');
+            svg.src = this.icon;
+
+            const text = document.createElement('p');
+            text.classList.add("projectText");
+            text.innerText = this.title;
+
+            projectLeftPanelDiv.appendChild(svg);
+            projectLeftPanelDiv.appendChild(text);
+
+            document.querySelector(".headerLeftPanel").insertBefore(projectLeftPanelDiv, document.querySelector(".defaultProject"));
+        };
+    };
+
+    let svgs = { 'inboxSVG': 0 };
+    let selectedSVG = 0; // make dynamic
+
+    let currentProjects = { 'Default Project': 0, }; // make dynamic
+
+    let oldVal = "";
+    let newVal = document.querySelector(".newProjectLeftPanelInput").value;
+
+    const checkValue = () => {
+        document.querySelector(".newProjectLeftPanelAddProjectButton").addEventListener('click', () => {
+            newVal = document.querySelector(".newProjectLeftPanelInput").value;
+            if (oldVal !== newVal) {
+                oldVal = newVal;
+                new createProject(newVal, flagSVG).createProjectElement();
+                document.querySelector("#newProjectLeftPanel").style.display = 'none';
+                document.querySelector(".leftPanelYourProjectHeaderText").nextElementSibling.id = newVal + ' ' + `${svgs.test}`; // make dynamic 
+                Object.assign(currentProjects, { newVal: svgs.inboxSVG })
+                console.log(currentProjects);
+            }
+            else if (oldVal === newVal) {
+                document.querySelector(".projectNameWarningLeftPanelDiv").style.display = 'flex';
+            }
+            const warning = () => { document.querySelector(".projectNameWarningLeftPanelDiv").style.display = 'none' };
+            window.setTimeout(warning, 1000);
+        })
+    };
+
+    window.setTimeout(checkValue, 500);
+
+})();
+
 
