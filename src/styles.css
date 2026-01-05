@@ -11,7 +11,7 @@
 }
 
 html {
-    
+
     scroll-behavior: smooth;
 }
 
@@ -44,7 +44,7 @@ h6 {
 
 body {
     display: flex;
-    
+
     background-color: rgb(45, 45, 45);
 }
 
@@ -58,7 +58,7 @@ body {
     border: 0.1rem solid white;
     border-bottom: 0;
     background-color: black;
-     overflow: hidden;
+    overflow: hidden;
 }
 
 .headerLeftPanel {
@@ -76,7 +76,7 @@ body {
     justify-content: center;
     height: fit-content;
 
-    
+
     font-size: 1.5vw;
     margin: 0 auto;
     color: white;
@@ -107,7 +107,7 @@ body {
     user-select: none;
     cursor: pointer;
 
-    
+
 }
 
 .defaultProject:hover {
@@ -163,7 +163,7 @@ body {
 
 
 
-#newProjectLeftPanel{
+#newProjectLeftPanel {
     display: none;
     flex-direction: column;
     flex: 1;
@@ -176,7 +176,8 @@ body {
     border-radius: 1rem;
     border: 0.1rem solid white;
 }
-.newProjectLeftPanelInput{
+
+.newProjectLeftPanelInput {
     text-align: center;
     max-height: fit-content;
     min-height: 2.5rem;
@@ -188,37 +189,49 @@ body {
     border: none;
     border-bottom: 0.1rem solid white;
 }
+
 .newProjectLeftPanelInput:focus {
     outline: none;
 }
-.newProjectLeftPanelButtons{
+
+.newProjectLeftPanelButtons {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     height: fit-content;
     width: fit-content;
     font-size: 2rem;
-    
+
     margin: auto;
     margin-top: 1rem;
-    margin-bottom:1rem;
-    
+    margin-bottom: 1rem;
+
 
 }
-.newProjectLeftPanelIconButton{
+
+.newProjectLeftPanelIconButton {
     cursor: pointer;
     margin: 0 auto;
     border: 0.1rem solid white;
     border-radius: 1rem;
-    
     font-weight: bold;
     border-color: white;
     color: white;
     background-color: black;
     padding: 0.5rem 1rem;
-    
+
 }
-.newProjectLeftPanelAddProjectButton{
+.newProjectLeftPanelIconButton:hover {
+    background-color: rgb(92, 92, 92);
+    cursor: pointer;
+}
+
+.newProjectLeftPanelIconButton:active {
+    background-color: rgb(45, 45, 45);
+
+}
+
+.newProjectLeftPanelAddProjectButton {
     cursor: pointer;
     margin: 0 auto;
     border: 0.1rem solid white;
@@ -229,19 +242,53 @@ body {
     background-color: black;
     padding: 0.5rem 1rem;
     justify-content: flex-end;
-    
+
 }
-.projectNameWarningLeftPanelDiv{
+.newProjectLeftPanelAddProjectButton:hover {
+    background-color: rgb(92, 92, 92);
+    cursor: pointer;
+}
+
+.newProjectLeftPanelAddProjectButton:active {
+    background-color: rgb(45, 45, 45);
+
+}
+
+.projectNameWarningLeftPanelDiv {
     display: none;
     margin: 0 auto;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     user-select: none;
 }
-.ProjectNameWarningLeftPanel{
+
+.ProjectNameWarningLeftPanel {
     color: rgb(211, 23, 23);
     font-weight: bold;
 }
 
+.newProjectLeftPanelIconSelect {
+    display: none;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    width: 80%;
+}
+
+.svgSelectNewProject {
+    border: 0.1rem solid white;
+    border-radius: 0.5rem;
+    display: flex;
+}
+
+.svgSelectNewProject:hover {
+    background-color: rgb(92, 92, 92);
+    cursor: pointer;
+}
+
+.svgSelectNewProject:active {
+    background-color: rgb(45, 45, 45);
+
+}
 
 
 

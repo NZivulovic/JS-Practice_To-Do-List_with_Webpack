@@ -1,3 +1,5 @@
+const fns = require('date-fns')
+const currentDateTimestamp = fns.format(new Date(), "yyyy-MM-dd'-'HH:mm:ss.SSS");
 
 import "./styles.css";
 
@@ -51,7 +53,7 @@ document.querySelector(".mainHeaderHomeSVG").style.cssText = "width: 2vw; height
 
 // Clear innerMiddlePage - DOM
 
-const removeCurrentPage = (() => {
+const interfaceHandlingDOM = (() => {
 
 
     // buttons for creating Tasks
@@ -61,26 +63,20 @@ const removeCurrentPage = (() => {
     if (newTaskButtonMain) {
         newTaskButtonMain.addEventListener('click', (e) => {
             console.log(e.target.id);
-            removeCurrentPageContent(e.target.id);
+            showMenu(e.target.id);
         })
     }
 
     newTaskButtonLeftPanel.addEventListener('click', (e) => {
         console.log(e.target.id);
-        removeCurrentPageContent(e.target.id);
+        showMenu(e.target.id);
     })
 
     // current page
     const innerMiddlePanel = document.querySelector('.innerMiddlePanel');
 
 
-    const removeCurrentPageContent = (targetID) => {
-        // if (innerMiddlePanel.hasChildNodes()) {
-        //     while (innerMiddlePanel.firstChild) {
-        //         innerMiddlePanel.removeChild(innerMiddlePanel.firstChild);
-        //     }
-        // }
-
+    const showMenu = (targetID) => {
 
         const parentNodes = innerMiddlePanel.children
         console.log(innerMiddlePanel.children);
@@ -88,7 +84,6 @@ const removeCurrentPage = (() => {
 
         for (const node of parentNodes) {
             if (targetID === "createProjectButton") {
-
                 document.getElementById("newProjectLeftPanel").style.display = "flex";
             }
             else if (targetID === "createTaskButton") {
@@ -98,19 +93,53 @@ const removeCurrentPage = (() => {
             else {
                 return;
             }
-
-
         }
 
     }
+
+    document.querySelector('.leftPanel').addEventListener('click', (e) => {
+        if (e.target.id === 'selectIconButton' && document.querySelector(".newProjectLeftPanelIconSelect").style.display === 'none') {
+            document.querySelector(".newProjectLeftPanelIconSelect").style.display = 'flex';
+        }
+        else {
+            document.querySelector(".newProjectLeftPanelIconSelect").style.display = 'none';
+        }
+    });
 
 
 })();
 
 
-
 const projectCreation = (() => {
 
+
+    let currentProjects = [
+        {
+            name: 'Default Project',
+            svg: '0',
+            ID: `${crypto.randomUUID()}`,
+            date: `${fns.format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS")}`
+        }
+    ];
+
+
+    class storeProject {
+        constructor(name, svg, ID, date) {
+            this.name = name;
+            this.svg = svg
+            this.ID = ID;
+            this.date = date;
+        };
+
+        save() {
+            currentProjects.push({
+                name: this.name,
+                svg: this.svg,
+                ID: this.ID,
+                date: this.date
+            });
+        };
+    };
 
     class createProject {
 
@@ -138,34 +167,56 @@ const projectCreation = (() => {
         };
     };
 
-    let svgs = { 'inboxSVG': 0 };
-    let selectedSVG = 0; // make dynamic
 
-    let currentProjects = { 'Default Project': 0, }; // make dynamic
 
-    let oldVal = "";
-    let newVal = document.querySelector(".newProjectLeftPanelInput").value;
+    const DOMhandling = () => {
 
-    const checkValue = () => {
+        const leftPanelIconSelector = document.querySelector(".newProjectLeftPanelIconSelect");
+        const parentNodeIcons = leftPanelIconSelector.children;
+
+
+        let selectedSVG = '0';
+        const svgs = [inboxSVG, completedSVG, calendarSVG, flagSVG, alertSVG, moreSVG];
+
+        for (const node of parentNodeIcons) {
+            node.addEventListener("click", (e) => {
+                selectedSVG = e.currentTarget.id;
+                leftPanelIconSelector.style.display = 'none';
+                console.log(selectedSVG);
+            })
+        }
+
+        const warningDiv = document.querySelector(".projectNameWarningLeftPanelDiv")
+        
         document.querySelector(".newProjectLeftPanelAddProjectButton").addEventListener('click', () => {
-            newVal = document.querySelector(".newProjectLeftPanelInput").value;
-            if (oldVal !== newVal) {
-                oldVal = newVal;
-                new createProject(newVal, flagSVG).createProjectElement();
+            let newVal = document.querySelector(".newProjectLeftPanelInput").value.trim();
+            
+            const showWarning = (text) => {
+                warningDiv.innerText = text;
+                warningDiv.style.display = 'flex';
+                warningDiv.style.color = 'red';
+                setTimeout(() => { warningDiv.style.display = 'none'; }, 1000);
+            };
+            
+            if (newVal === '') {
+                showWarning('Title empty!')
+            }
+            else if (currentProjects.some(project => project.name === newVal)) {
+                showWarning('Project with that name already exists!')
+            }
+            else {
+                new createProject(newVal, svgs[selectedSVG]).createProjectElement();
+                const ID = crypto.randomUUID();
+                new storeProject(newVal, svgs[selectedSVG], ID, currentDateTimestamp).save();
                 document.querySelector("#newProjectLeftPanel").style.display = 'none';
-                document.querySelector(".leftPanelYourProjectHeaderText").nextElementSibling.id = newVal + ' ' + `${svgs.test}`; // make dynamic 
-                Object.assign(currentProjects, { newVal: svgs.inboxSVG })
+                document.querySelector(".leftPanelYourProjectHeaderText").nextElementSibling.id = ID;
+                document.querySelector(".newProjectLeftPanelInput").value = '';
                 console.log(currentProjects);
             }
-            else if (oldVal === newVal) {
-                document.querySelector(".projectNameWarningLeftPanelDiv").style.display = 'flex';
-            }
-            const warning = () => { document.querySelector(".projectNameWarningLeftPanelDiv").style.display = 'none' };
-            window.setTimeout(warning, 1000);
-        })
+        });
     };
 
-    window.setTimeout(checkValue, 500);
+    window.setTimeout(DOMhandling, 500);
 
 })();
 
