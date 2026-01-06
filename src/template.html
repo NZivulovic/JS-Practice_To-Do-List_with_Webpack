@@ -12,7 +12,7 @@
     <div class="leftPanel">
         <div class="headerLeftPanel">
             <p class="leftPanelYourProjectHeaderText">Your Projects</p>
-            <div class="defaultProject">
+            <div id="defaultProject" class="defaultProject">
                 <p class="projectText">Default Project</p>
             </div>
             <div class="leftPanelAddNewProject">
@@ -29,7 +29,10 @@
                         <button id="selectIconButton" class="newProjectLeftPanelIconButton">Icon</button>
                         <button class="newProjectLeftPanelAddProjectButton">Add</button>
                     </div>
-                    <div class="newProjectLeftPanelIconSelect">
+                    <div class="projectNameWarningLeftPanelDiv">
+                        <p class="ProjectNameWarningLeftPanel">Project Folder already made!</p>
+                    </div>
+                    <div id="newProjectLeftPanelIconSelect" class="newProjectLeftPanelIconSelect">
                         <div id="0" class="svgSelectNewProject">
                             <img src="./svgs/inbox_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
                         </div>
@@ -49,9 +52,7 @@
                             <img src="./svgs/more_horiz_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
                         </div>
                     </div>
-                    <div class="projectNameWarningLeftPanelDiv">
-                        <p class="ProjectNameWarningLeftPanel">Project Folder already made!</p>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -64,7 +65,7 @@
         </header>
         <div class="innerMiddlePanelOverlay">
             <div class="innerMiddlePanel">
-                <div class="createTask">
+                <div id="createTask" class="createTask">
                     <p class="newTaskButtonMainText">Start by creating a task!</p>
                     <button id="createTaskButton" class="newTaskButtonMain">+ New Task</button>
                 </div>

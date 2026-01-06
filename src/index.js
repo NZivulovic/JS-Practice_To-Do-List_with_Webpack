@@ -15,7 +15,7 @@ import flagSVG from "./svgs/flag_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 import moreSVG from "./svgs/more_horiz_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 
 
-//  // DOM Manipulation
+//  SVG 
 
 const addSvgToDOM = (() => {
 
@@ -51,66 +51,52 @@ addSvgToDOM.addSvg(".defaultProject", inboxSVG, ".projectText", "projectText");
 
 document.querySelector(".mainHeaderHomeSVG").style.cssText = "width: 2vw; height: 100%; margin: auto 0;"
 
-// Clear innerMiddlePage - DOM
-
-const interfaceHandlingDOM = (() => {
 
 
-    // buttons for creating Tasks
-    const newTaskButtonMain = document.querySelector('.newTaskButtonMain');    // Home Page Middle Button
-    const newTaskButtonLeftPanel = document.querySelector('.leftPanelYourProjectHeaderPlusButton');  // Left Panel Button
 
-    if (newTaskButtonMain) {
-        newTaskButtonMain.addEventListener('click', (e) => {
-            console.log(e.target.id);
-            showMenu(e.target.id);
-        })
+
+const interfaceHandler = (() => {
+
+    const toggleUI = (targetID, hideOthers = false) => {
+        const targetElement = document.getElementById(targetID);
+        const innerMiddlePanel = document.querySelector('.innerMiddlePanel');
+
+        if (!targetElement) return;
+
+        const isVisible = targetElement.style.display === 'flex';
+
+        if (hideOthers && innerMiddlePanel.hasChildNodes) {
+            Array.from(innerMiddlePanel.children).forEach(node => {
+                node.style.display = 'none';
+            });
+        };
+
+        targetElement.style.display = isVisible ? 'none' : 'flex';
+    };
+
+
+    const UI_Map = {
+        'createProjectButton': { target: 'newProjectLeftPanel' },
+        'createTaskButton': { target: 'taskForm', hideOthers: true },
+        'btn6': { target: 'createTask', hideOthers: true }
     }
 
-    newTaskButtonLeftPanel.addEventListener('click', (e) => {
-        console.log(e.target.id);
-        showMenu(e.target.id);
+    Object.keys(UI_Map).forEach(buttonID => {
+        const button = document.getElementById(buttonID);
+        if (button) {
+            button.addEventListener('click', () => {
+                const openMenu = UI_Map[buttonID]
+                toggleUI(openMenu.target, openMenu.hideOthers);
+            });
+        }
     })
-
-    // current page
-    const innerMiddlePanel = document.querySelector('.innerMiddlePanel');
-
-
-    const showMenu = (targetID) => {
-
-        const parentNodes = innerMiddlePanel.children
-        console.log(innerMiddlePanel.children);
-        console.log(targetID);
-
-        for (const node of parentNodes) {
-            if (targetID === "createProjectButton") {
-                document.getElementById("newProjectLeftPanel").style.display = "flex";
-            }
-            else if (targetID === "createTaskButton") {
-                node.style.display = "none";
-                document.getElementById("taskForm").style.display = "flex";
-            }
-            else {
-                return;
-            }
-        }
-
-    }
-
-    document.querySelector('.leftPanel').addEventListener('click', (e) => {
-        if (e.target.id === 'selectIconButton' && document.querySelector(".newProjectLeftPanelIconSelect").style.display === 'none') {
-            document.querySelector(".newProjectLeftPanelIconSelect").style.display = 'flex';
-        }
-        else {
-            document.querySelector(".newProjectLeftPanelIconSelect").style.display = 'none';
-        }
-    });
-
 
 })();
 
 
+
 const projectCreation = (() => {
+
 
 
     let currentProjects = [
@@ -121,7 +107,7 @@ const projectCreation = (() => {
             date: `${fns.format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS")}`
         }
     ];
-
+    document.querySelector(".defaultProject").setAttribute('id', currentProjects[0].ID);
 
     class storeProject {
         constructor(name, svg, ID, date) {
@@ -168,36 +154,56 @@ const projectCreation = (() => {
     };
 
 
-
     const DOMhandling = () => {
 
-        const leftPanelIconSelector = document.querySelector(".newProjectLeftPanelIconSelect");
-        const parentNodeIcons = leftPanelIconSelector.children;
-
-
-        let selectedSVG = '0';
+        const leftPanelIconSelectorDiv = document.querySelector(".newProjectLeftPanelIconSelect");
+        const warningDiv = document.querySelector(".projectNameWarningLeftPanelDiv")
+        const parentNodeIcons = leftPanelIconSelectorDiv.children;
         const svgs = [inboxSVG, completedSVG, calendarSVG, flagSVG, alertSVG, moreSVG];
+        let selectedSVG = '0';
 
         for (const node of parentNodeIcons) {
             node.addEventListener("click", (e) => {
                 selectedSVG = e.currentTarget.id;
-                leftPanelIconSelector.style.display = 'none';
+                leftPanelIconSelectorDiv.style.display = 'none';
                 console.log(selectedSVG);
             })
         }
 
-        const warningDiv = document.querySelector(".projectNameWarningLeftPanelDiv")
-        
+        window.addEventListener('click', (e) => {
+            if (e.target.id === 'selectIconButton' && document.querySelector(".newProjectLeftPanelIconSelect").style.display === 'none') {
+                document.querySelector(".newProjectLeftPanelIconSelect").style.display = 'flex';
+            }
+            else {
+                document.querySelector(".newProjectLeftPanelIconSelect").style.display = 'none';
+            }
+        });
+
+        window.addEventListener('click', (e) => {
+            const projectElement = e.target.closest('.defaultProject');
+
+            if (projectElement) {
+                const projectID = projectElement.id;
+                const exists = currentProjects.some(p => p.ID === projectID);
+
+                if (exists) {
+                    document.querySelector('.innerMiddlePanel').style.display = 'none';
+                    
+                    // loadProjectTasks(projectID);
+                }
+            }
+        });
+
         document.querySelector(".newProjectLeftPanelAddProjectButton").addEventListener('click', () => {
             let newVal = document.querySelector(".newProjectLeftPanelInput").value.trim();
-            
+
             const showWarning = (text) => {
                 warningDiv.innerText = text;
                 warningDiv.style.display = 'flex';
                 warningDiv.style.color = 'red';
                 setTimeout(() => { warningDiv.style.display = 'none'; }, 1000);
             };
-            
+
             if (newVal === '') {
                 showWarning('Title empty!')
             }
@@ -208,6 +214,7 @@ const projectCreation = (() => {
                 new createProject(newVal, svgs[selectedSVG]).createProjectElement();
                 const ID = crypto.randomUUID();
                 new storeProject(newVal, svgs[selectedSVG], ID, currentDateTimestamp).save();
+
                 document.querySelector("#newProjectLeftPanel").style.display = 'none';
                 document.querySelector(".leftPanelYourProjectHeaderText").nextElementSibling.id = ID;
                 document.querySelector(".newProjectLeftPanelInput").value = '';
@@ -216,8 +223,64 @@ const projectCreation = (() => {
         });
     };
 
-    window.setTimeout(DOMhandling, 500);
+    DOMhandling();
 
 })();
 
 
+
+
+const taskCreation = (() => {
+
+    // Task Form
+    const taskForm = document.querySelector("#taskForm");
+
+    let currentTasks = [];
+
+    class storeTask {
+        constructor(title, description, date, priority, reminders, project, ID) {
+            this.title = title;
+            this.description = description;
+            this.date = date;
+            this.priority = priority;
+            this.reminders = reminders;
+            this.project = project;
+            this.ID = ID;
+        }
+        save() {
+            currentTasks.push({
+                title: this.title,
+                description: this.description,
+                date: this.date,
+                priority: this.priority,
+                reminders: this.reminders,
+                project: this.project,
+                ID: this.ID
+            });
+        };
+    };
+
+    class createTask {
+        constructor(title, description, date, priority, reminders, project, ID) {
+            this.title = title;
+            this.description = description;
+            this.date = date;
+            this.priority = priority;
+            this.reminders = reminders;
+            this.project = project;
+            this.ID = ID;
+        };
+        createTaskElement() {
+
+        };
+
+
+
+    }
+
+
+    const DOMhandling = () => {
+
+    }
+
+})();
