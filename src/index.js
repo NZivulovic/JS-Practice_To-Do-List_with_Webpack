@@ -9,10 +9,11 @@ import inboxSVG from "./svgs/inbox_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
 import homeSVG from "./svgs/home_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg";
 import completedSVG from "./svgs/done_all_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
 import arrowDropDownSVG from "./svgs/arrow_drop_down_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
-import alertSVG from "./svgs/add_alert_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
-import calendarSVG from "./svgs/calendar_month_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
-import flagSVG from "./svgs/flag_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
-import moreSVG from "./svgs/more_horiz_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+import alertSVG from "./svgs/add_alert_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
+import calendarSVG from "./svgs/calendar_month_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
+import flagSVG from "./svgs/flag_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
+import moreSVG from "./svgs/more_horiz_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg";
+import starSVG from "./svgs/star_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 
 
 //  SVG 
@@ -48,6 +49,12 @@ addSvgToDOM.addSvg(".mainHeaderHomeDiv", homeSVG, ".mainHeaderHomeText", "mainHe
 addSvgToDOM.addSvg("#btn4.taskFormOption", moreSVG);
 addSvgToDOM.addSvg(".taskFormFinalizeProjectSelectButton", arrowDropDownSVG);
 addSvgToDOM.addSvg(".defaultProject", inboxSVG, ".projectText", "projectText");
+addSvgToDOM.addSvg("#star1", starSVG);
+addSvgToDOM.addSvg("#star2", starSVG);
+addSvgToDOM.addSvg("#star2", starSVG);
+addSvgToDOM.addSvg("#star3", starSVG);
+addSvgToDOM.addSvg("#star3", starSVG);
+addSvgToDOM.addSvg("#star3", starSVG);
 
 document.querySelector(".mainHeaderHomeSVG").style.cssText = "width: 2vw; height: 100%; margin: auto 0;"
 
@@ -74,11 +81,11 @@ const interfaceHandler = (() => {
         targetElement.style.display = isVisible ? 'none' : 'flex';
     };
 
-
     const UI_Map = {
         'createProjectButton': { target: 'newProjectLeftPanel' },
         'createTaskButton': { target: 'taskForm', hideOthers: true },
-        'btn6': { target: 'createTask', hideOthers: true }
+        'btn6': { target: 'createTask', hideOthers: true },
+        'btn2': { target: 'taskFormPrioritiesDiv', hideOthers: false }
     }
 
     Object.keys(UI_Map).forEach(buttonID => {
@@ -96,8 +103,6 @@ const interfaceHandler = (() => {
 
 
 const projectCreation = (() => {
-
-
 
     let currentProjects = [
         {
@@ -152,7 +157,6 @@ const projectCreation = (() => {
             document.querySelector(".headerLeftPanel").insertBefore(projectLeftPanelDiv, document.querySelector(".defaultProject"));
         };
     };
-
 
     const DOMhandling = () => {
 
