@@ -21,10 +21,11 @@ import starSVG from "./svgs/star_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 const addSvgToDOM = (() => {
 
     // takes DOM Selectors and creates new SVG then Appends or insertsBefore
-    const addSvg = (parentSelector, svgSrc, beforeSelector = null, className = "") => {
+    const addSvg = (parentSelector, svgSrc, beforeSelector = null, className = "", ID = '') => {
         const svg = new Image();
         svg.src = svgSrc;
         if (className) svg.classList.add(className);
+        if (ID) svg.id = ID;
 
         const parent = document.querySelector(parentSelector);
         const reference = beforeSelector ? parent.querySelector(beforeSelector) : null;
@@ -49,20 +50,22 @@ addSvgToDOM.addSvg(".mainHeaderHomeDiv", homeSVG, ".mainHeaderHomeText", "mainHe
 addSvgToDOM.addSvg("#btn4.taskFormOption", moreSVG);
 addSvgToDOM.addSvg(".taskFormFinalizeProjectSelectButton", arrowDropDownSVG);
 addSvgToDOM.addSvg(".defaultProject", inboxSVG, ".projectText", "projectText");
-addSvgToDOM.addSvg("#star1", starSVG);
-addSvgToDOM.addSvg("#star2", starSVG);
-addSvgToDOM.addSvg("#star2", starSVG);
-addSvgToDOM.addSvg("#star3", starSVG);
-addSvgToDOM.addSvg("#star3", starSVG);
-addSvgToDOM.addSvg("#star3", starSVG);
+addSvgToDOM.addSvg("#star1", starSVG, null, '', 'star1');
+addSvgToDOM.addSvg("#star2", starSVG, null, '', 'star2');
+addSvgToDOM.addSvg("#star2", starSVG, null, '', 'star2');
+addSvgToDOM.addSvg("#star3", starSVG, null, '', 'star3');
+addSvgToDOM.addSvg("#star3", starSVG, null, '', 'star3');
+addSvgToDOM.addSvg("#star3", starSVG, null, '', 'star3');
 
 document.querySelector(".mainHeaderHomeSVG").style.cssText = "width: 2vw; height: 100%; margin: auto 0;"
 
 
+// taskForm, set date min to today
 
 
 
 const interfaceHandler = (() => {
+
 
     const toggleUI = (targetID, hideOthers = false) => {
         const targetElement = document.getElementById(targetID);
@@ -85,7 +88,9 @@ const interfaceHandler = (() => {
         'createProjectButton': { target: 'newProjectLeftPanel' },
         'createTaskButton': { target: 'taskForm', hideOthers: true },
         'btn6': { target: 'createTask', hideOthers: true },
-        'btn2': { target: 'taskFormPrioritiesDiv', hideOthers: false }
+        'btn2': { target: 'taskFormPrioritiesDiv', hideOthers: false },
+        'btn1': { target: 'taskFormOptionDateSelector', hideOthers: false },
+        'btn5': { target: 'selectProjectTaskForm', hideOthers: false }
     }
 
     Object.keys(UI_Map).forEach(buttonID => {
@@ -98,6 +103,26 @@ const interfaceHandler = (() => {
         }
     })
 
+    const taskFormPriority = document.querySelectorAll('.taskFormPrioritiesOption');
+    taskFormPriority.forEach(element => {
+        element.addEventListener('click', (e) => {
+            let priorityID = e.target.id;
+            console.log(priorityID)
+            toggleUI('taskFormPrioritiesDiv');
+        })
+    });
+    const projectSelect = document.querySelectorAll('.defaultProjectTaskForm');
+    projectSelect.forEach(proj => {
+        if (proj) {
+            proj.addEventListener('click', (e) => {
+                let projID = e.target.id;
+                console.log(projID)
+                toggleUI('selectProjectTaskForm');
+            })
+        }
+    });
+
+    document.getElementById('taskFormOptionDateSelector').min = new Date().toLocaleDateString().split('T')[1];
 })();
 
 
@@ -134,14 +159,16 @@ const projectCreation = (() => {
 
     class createProject {
 
-        constructor(title, icon) {
+        constructor(title, icon, ID) {
             this.title = title;
             this.icon = icon;
+            this.ID = ID;
         };
 
-        createProjectElement() {
+        createProjectElementLeftPanel() {
             const projectLeftPanelDiv = document.createElement('div');
             projectLeftPanelDiv.classList.add("defaultProject");
+            projectLeftPanelDiv.id = this.ID
 
             const svg = new Image();
             svg.classList.add('projectText');
@@ -156,6 +183,25 @@ const projectCreation = (() => {
 
             document.querySelector(".headerLeftPanel").insertBefore(projectLeftPanelDiv, document.querySelector(".defaultProject"));
         };
+        createProjectElementTaskForm() {
+            const projectTaskFormDiv = document.createElement('div');
+            projectTaskFormDiv.classList.add("defaultProjectTaskForm");
+            projectTaskFormDiv.id = this.ID
+
+            const svg = new Image();
+            svg.classList.add('projectText');
+            svg.src = this.icon;
+
+            const text = document.createElement('p');
+            text.classList.add("projectText");
+            text.innerText = this.title;
+
+            projectTaskFormDiv.appendChild(svg);
+            projectTaskFormDiv.appendChild(text);
+
+            document.querySelector("#selectProjectTaskForm").appendChild(projectTaskFormDiv);
+        }
+
     };
 
     const DOMhandling = () => {
@@ -192,11 +238,13 @@ const projectCreation = (() => {
 
                 if (exists) {
                     document.querySelector('.innerMiddlePanel').style.display = 'none';
-                    
+
                     // loadProjectTasks(projectID);
                 }
             }
         });
+
+
 
         document.querySelector(".newProjectLeftPanelAddProjectButton").addEventListener('click', () => {
             let newVal = document.querySelector(".newProjectLeftPanelInput").value.trim();
@@ -215,8 +263,9 @@ const projectCreation = (() => {
                 showWarning('Project with that name already exists!')
             }
             else {
-                new createProject(newVal, svgs[selectedSVG]).createProjectElement();
                 const ID = crypto.randomUUID();
+                new createProject(newVal, svgs[selectedSVG], ID).createProjectElementLeftPanel(); // left panel
+                new createProject(newVal, svgs[selectedSVG], ID).createProjectElementTaskForm(); // task form
                 new storeProject(newVal, svgs[selectedSVG], ID, currentDateTimestamp).save();
 
                 document.querySelector("#newProjectLeftPanel").style.display = 'none';

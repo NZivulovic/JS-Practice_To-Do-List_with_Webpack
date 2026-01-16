@@ -52,7 +52,7 @@
                             <img src="./svgs/more_horiz_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="">
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -78,20 +78,26 @@
                     <div class="taskFormOptions">
                         <button id="btn1" class="taskFormOption">
                             <p id="btn1" class="taskFormOptionText">Date</p>
+
                         </button>
-                        <button id="btn2" class="taskFormOption">
-                            <p id="btn2" class="taskFormOptionText">Priority</p>
-                        </button>
-                        <div id="taskFormPrioritiesDiv" class="taskFormPrioritiesDiv">
-                            <button id="star3" class="taskFormPrioritiesOption">
-                                
+                        <input type="datetime-local" id="taskFormOptionDateSelector" name="taskFormOptionDateSelector"
+                            min="2026-01-01T00:00" max="2027-11-16T21:25:33" />
+                        <div class="anchorContainer">
+                            <button id="btn2" class="taskFormOption">
+                                <p id="btn2" class="taskFormOptionText">Priority</p>
+
                             </button>
-                            <button id="star2" class="taskFormPrioritiesOption">
-                                
-                            </button>
-                            <button id="star1" class="taskFormPrioritiesOption">
-                            
-                            </button>
+                            <div id="taskFormPrioritiesDiv" class="taskFormPrioritiesDiv">
+                                <button id="star3" class="taskFormPrioritiesOption">
+
+                                </button>
+                                <button id="star2" class="taskFormPrioritiesOption">
+
+                                </button>
+                                <button id="star1" class="taskFormPrioritiesOption">
+
+                                </button>
+                            </div>
                         </div>
                         <button id="btn3" class="taskFormOption">
                             <p id="btn3" class="taskFormOptionText">Reminders</p>
@@ -101,9 +107,14 @@
                     </div>
                     <div class="taskFormFinalize">
                         <div class="taskFormFinalizeLeft">
-                            <button id="btn5" class="taskFormFinalizeProjectSelectButton">
-                                <p id="btn5" class="taskFormOptionText">Default Project</p>
-                            </button>
+                            <div class="anchorContainer">
+                                <button id="btn5" class="taskFormFinalizeProjectSelectButton">
+                                    <p id="btn5" class="taskFormOptionText">Default Project</p>
+                                </button>
+                                <div id="selectProjectTaskForm">
+                                    
+                                </div>
+                            </div>
                         </div>
                         <div class="taskFormFinalizeRight">
                             <button id="btn6" class="taskFormFinalizeCancelButton">
