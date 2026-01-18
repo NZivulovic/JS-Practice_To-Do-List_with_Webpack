@@ -324,7 +324,50 @@ const taskCreation = (() => {
             this.ID = ID;
         };
         createTaskElement() {
+            const taskDiv = document.createElement('div');
+            taskDiv.classList.add("taskContainer");
+            taskDiv.id = this.ID
+            taskDiv.setAttribute('project', `${this.project}`)
+            
+            const title = document.createElement('p');
+            title.classList.add("taskItem");
+            title.id("taskTitle");
+            title.innerText = this.title;
+            taskDiv.appendChild(title);
 
+            if (description) {
+                const desc = document.createElement('p');
+                desc.classList.add("taskItem");
+                desc.id("taskDesc");
+                desc.innerText = this.description;
+                taskDiv.appendChild(desc);
+            }
+
+            if (date) {
+                const date = document.createElement('p');
+                date.classList.add("taskItem");
+                date.id("taskDate");
+                date.innerText = this.date;
+                taskDiv.appendChild(date);
+            }
+
+            if (priority) {
+                const priority = document.createElement('p');
+                priority.classList.add("taskItem");
+                priority.id("taskPriority");
+                priority.innerText = this.priority;
+                taskDiv.appendChild(priority);
+            }
+
+            if (reminders) {
+                const reminders = document.createElement('p');
+                reminders.classList.add("taskItem");
+                reminders.id("taskReminder");
+                reminders.innerText = this.reminders;
+                taskDiv.appendChild(reminders);
+            }
+
+            document.querySelector(".innerMiddlePanel").appendChild(taskDiv);
         };
 
 
@@ -333,7 +376,49 @@ const taskCreation = (() => {
 
 
     const DOMhandling = () => {
+        document.querySelector(".taskFormFinalizeAddTaskButton").addEventListener('click', () => {
+            const title = document.querySelector(".taskFormInputTitle").value.trim();
+            const description = document.querySelector(".taskFormInputDescription").value.trim();
+            const date = document.querySelector("#taskFormOptionDateSelector").value.trim();
+            const priority = ''
+            const reminders = ''
+            const project = ''
+            const ID = crypto.randomUUID()
+            
 
+            document.querySelectorAll(".taskFormPrioritiesOption").addEventListener('click', (e) => {
+                return priority = e.target.id
+            })
+            document.querySelectorAll(".defaultProjectTaskForm").addEventListener('click', (e) => {
+                return project = e.target.id
+            })
+
+            // const warningDiv = document.querySelector(".projectNameWarningLeftPanelDiv")
+            const showWarning = (text) => {
+                warningDiv.innerText = text;
+                warningDiv.style.display = 'flex';
+                warningDiv.style.color = 'red';
+                setTimeout(() => { warningDiv.style.display = 'none'; }, 1000);
+            };
+
+            if (title === '') {
+                showWarning('Title empty!')
+            }
+            else if (currentTasks.some(task => task.title === title)) {
+                showWarning('Task with that name already exists!')
+            }
+            else {
+                // new createProject(newVal, svgs[selectedSVG], ID).createProjectElementLeftPanel(); // left panel
+                // new createProject(newVal, svgs[selectedSVG], ID).createProjectElementTaskForm(); // task form
+                // new storeProject(newVal, svgs[selectedSVG], ID, currentDateTimestamp).save();
+
+                // document.querySelector("#newProjectLeftPanel").style.display = 'none';
+                // document.querySelector(".leftPanelYourProjectHeaderText").nextElementSibling.id = ID;
+                // document.querySelector(".newProjectLeftPanelInput").value = '';
+                // console.log(currentProjects);
+            }
+        });
     }
+
 
 })();
