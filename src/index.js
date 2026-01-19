@@ -328,43 +328,70 @@ const taskCreation = (() => {
             taskDiv.classList.add("taskContainer");
             taskDiv.id = this.ID
             taskDiv.setAttribute('project', `${this.project}`)
-            
+
+            const titleDiv = document.createElement('div');
             const title = document.createElement('p');
             title.classList.add("taskItem");
-            title.id("taskTitle");
-            title.innerText = this.title;
-            taskDiv.appendChild(title);
+            title.id = ("taskTitle");
+            titleDiv.classList.add("taskDiv");
+            titleDiv.id = ("taskTitleDiv");
+            title.innerText = 'Title: ' + this.title;
+            titleDiv.appendChild(title)
+            taskDiv.appendChild(titleDiv);
 
-            if (description) {
+            if (this.description) {
+                const descDiv = document.createElement('div');
                 const desc = document.createElement('p');
                 desc.classList.add("taskItem");
-                desc.id("taskDesc");
-                desc.innerText = this.description;
-                taskDiv.appendChild(desc);
+                desc.id = ("taskDesc");
+                descDiv.classList.add("taskDiv");
+                descDiv.id = ("taskDescDiv");
+                desc.innerText = 'Description: ' + this.description;
+                descDiv.appendChild(desc)
+                taskDiv.appendChild(descDiv);
             }
 
-            if (date) {
+            if (this.date) {
+                const dateDiv = document.createElement('div');
                 const date = document.createElement('p');
                 date.classList.add("taskItem");
-                date.id("taskDate");
-                date.innerText = this.date;
-                taskDiv.appendChild(date);
+                date.id = ("taskDate");
+                dateDiv.classList.add("taskDiv");
+                dateDiv.id = ("taskDateDiv");
+                date.innerText = 'Due Date: ' + this.date;
+                dateDiv.appendChild(date)
+                taskDiv.appendChild(dateDiv);
             }
 
-            if (priority) {
+            if (this.priority) {
+                const priorityDiv = document.createElement('div');
                 const priority = document.createElement('p');
                 priority.classList.add("taskItem");
-                priority.id("taskPriority");
-                priority.innerText = this.priority;
-                taskDiv.appendChild(priority);
+                priority.id = ("taskPriority");
+                priorityDiv.classList.add("taskDiv");
+                priorityDiv.id = ("taskPriorityDiv");
+                priority.innerText = 'Priority: ' + this.priority;
+                priorityDiv.appendChild(priority)
+                taskDiv.appendChild(priorityDiv);
             }
 
-            if (reminders) {
+            if (this.reminders) {
+                const remindersDiv = document.createElement('div');
                 const reminders = document.createElement('p');
                 reminders.classList.add("taskItem");
-                reminders.id("taskReminder");
-                reminders.innerText = this.reminders;
-                taskDiv.appendChild(reminders);
+                reminders.id = ("taskReminder");
+                remindersDiv.classList.add("taskDiv");
+                remindersDiv.id = ("taskRemindersDiv");
+                reminders.innerText = 'Reminders: ' + this.reminders;
+                remindersDiv.appendChild(reminders)
+                taskDiv.appendChild(remindersDiv);
+            }
+            if (this.project) {
+                const project = document.createElement('p');
+                project.classList.add("taskItem");
+                project.id = ("taskProject");
+                project.innerText = this.project;
+                // taskDiv.appendChild(project);
             }
 
             document.querySelector(".innerMiddlePanel").appendChild(taskDiv);
@@ -374,51 +401,75 @@ const taskCreation = (() => {
 
     }
 
+    let taskFormPriority = 'star1'
+    let taskFormReminders = 'None'
+    let taskFormProject = 'Default Project'
+
+
+    const priorityContainer = document.querySelector("#taskFormPrioritiesDiv");
+
+    priorityContainer.addEventListener('click', (e) => {
+
+        const priorityItem = e.target.closest('.taskFormPrioritiesOption');
+        if (priorityItem && priorityContainer.contains(priorityItem)) {
+            taskFormPriority = priorityItem.id;
+            console.log(taskFormPriority);
+        }
+    });
+
+    const projectContainer = document.querySelector("#selectProjectTaskForm");
+
+    projectContainer.addEventListener('click', (e) => {
+
+        const projectItem = e.target.closest('.defaultProjectTaskForm');
+        if (projectItem && projectContainer.contains(projectItem)) {
+            taskFormProject = projectItem.id;
+            console.log(taskFormProject);
+        }
+    });
+
+    // make remindersContainer
 
     const DOMhandling = () => {
-        document.querySelector(".taskFormFinalizeAddTaskButton").addEventListener('click', () => {
-            const title = document.querySelector(".taskFormInputTitle").value.trim();
-            const description = document.querySelector(".taskFormInputDescription").value.trim();
-            const date = document.querySelector("#taskFormOptionDateSelector").value.trim();
-            const priority = ''
-            const reminders = ''
-            const project = ''
-            const ID = crypto.randomUUID()
-            
 
-            document.querySelectorAll(".taskFormPrioritiesOption").addEventListener('click', (e) => {
-                return priority = e.target.id
-            })
-            document.querySelectorAll(".defaultProjectTaskForm").addEventListener('click', (e) => {
-                return project = e.target.id
-            })
+        const title = document.querySelector(".taskFormInputTitle").value.trim();
+        const description = document.querySelector(".taskFormInputDescription").value.trim();
+        const date = document.querySelector("#taskFormOptionDateSelector").value.trim();
+        const priority = taskFormPriority
+        const reminders = taskFormReminders
+        const project = taskFormProject
+        const ID = crypto.randomUUID()
 
-            // const warningDiv = document.querySelector(".projectNameWarningLeftPanelDiv")
-            const showWarning = (text) => {
-                warningDiv.innerText = text;
-                warningDiv.style.display = 'flex';
-                warningDiv.style.color = 'red';
-                setTimeout(() => { warningDiv.style.display = 'none'; }, 1000);
-            };
 
-            if (title === '') {
-                showWarning('Title empty!')
-            }
-            else if (currentTasks.some(task => task.title === title)) {
-                showWarning('Task with that name already exists!')
-            }
-            else {
-                // new createProject(newVal, svgs[selectedSVG], ID).createProjectElementLeftPanel(); // left panel
-                // new createProject(newVal, svgs[selectedSVG], ID).createProjectElementTaskForm(); // task form
-                // new storeProject(newVal, svgs[selectedSVG], ID, currentDateTimestamp).save();
 
-                // document.querySelector("#newProjectLeftPanel").style.display = 'none';
-                // document.querySelector(".leftPanelYourProjectHeaderText").nextElementSibling.id = ID;
-                // document.querySelector(".newProjectLeftPanelInput").value = '';
-                // console.log(currentProjects);
-            }
-        });
-    }
+        // make special WarningDiv for TaskForm
+
+        const warningDiv = document.querySelector("#taskFormWarningDiv")
+        const showWarning = (text) => {
+            warningDiv.innerText = text;
+            warningDiv.style.display = 'flex';
+            warningDiv.style.color = 'red';
+            setTimeout(() => { warningDiv.style.display = 'none'; }, 1000);
+        };
+
+        if (title === '') {
+            showWarning('Title empty!')
+        }
+        else if (currentTasks.some(task => task.title === title)) {
+            showWarning('Task with that name already exists!')
+        }
+        else {
+            new createTask(title, description, date, priority, reminders, project, ID).createTaskElement();
+            new storeTask(title, description, date, priority, reminders, project, ID).save();
+
+            console.log(currentTasks);
+        }
+    };
+
+
+    document.querySelector(".taskFormFinalizeAddTaskButton").addEventListener('click', () => {
+        DOMhandling();
+    });
 
 
 })();

@@ -658,3 +658,51 @@ body {
 #btn7.taskFormFinalizeAddTaskButton:active {
     background-color: rgb(45, 45, 45);
 }
+
+#taskFormWarningDiv{
+    display: none;
+    position: absolute;
+    margin-left: 15rem;
+    margin-top: 1rem;
+    user-select: none;
+}
+#taskFormWarningDivText{
+    color: rgb(211, 23, 23);
+    font-weight: bold;
+}
+
+
+
+.taskContainer{
+    display: flex;
+    flex-direction: column;
+    
+    background-color: black;
+    border: 0.1rem solid white;
+    border-radius: 1rem;
+    
+    width: 80%;
+    margin: 0 auto;
+
+    height: fit-content;
+
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.taskItem{
+    display: flex;
+
+    color: white;
+
+    max-width: 100%;
+
+    text-indent: 1rem;
+}
+
+.taskItem{
+    
+}
+
+#taskTitleDiv{
+    
+}
